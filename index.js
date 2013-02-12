@@ -1,9 +1,24 @@
 var GithubApi = require("github");
+var url = require("url");
+
 module.exports = function(option){
-  var github = new GithubApi({
+  var parse = url.parse(option.url);
+  var githubOption = {
     "version" : "3.0.0",
-    "url" : option.url,
-  })
+  }
+  
+  if(parse){
+    githubOption.protocol = parse.protocol.replace(/:$/,"");
+    githubOption.host = parse.hostname;
+    githubOption.url = parse.path;
+    githubOption.port = parse.port;
+  }
+  if(option.debug){
+    githubOption.debug = true;
+    console.log(githubOption);
+  }
+  
+  var github = new GithubApi(githubOption)
   if(option.token){
     github.authenticate({
       type : "oauth",
@@ -15,10 +30,7 @@ module.exports = function(option){
       require("./lib/check-conflict")(github, user, repo, callback)
     },
     label : function(user, repo, label, callback){
-      var option={
-        conflictLabel : label
-      }
-      require("./lib/labeling")(github, user, repo, option, callback)
+      require("./lib/labeling")(github, user, repo, label, callback)
     }
   }
 }

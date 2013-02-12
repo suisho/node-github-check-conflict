@@ -11,6 +11,8 @@
   "license": "BSD",
   "dependencies": {
     "github": "~0.1.8",
-    "async": "~0.2.3"
+    "async": "~0.2.3",
+    "clone": "~0.1.5",
+    "request": "~2.12.0"
   }
 }

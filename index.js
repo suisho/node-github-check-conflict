@@ -1,11 +1,11 @@
 var GithubApi = require("github");
 module.exports = function(option){
-  var github = new GithubApi(
+  var github = new GithubApi({
     "version" : "3.0.0",
     "url" : option.url,
-  )
+  })
   if(option.token){
-    github.authorize({
+    github.authenticate({
       type : "oauth",
       token : option.token
     })

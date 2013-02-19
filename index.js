@@ -27,7 +27,7 @@ module.exports = function(option){
   }
   return {
     check : function(user, repo, callback){
-      require("./lib/check-conflict")(github, user, repo, callback)
+      require("./lib/mergeable")(github, user, repo, callback)
     },
     label : function(user, repo, label, callback){
       require("./lib/labeling")(github, user, repo, label, callback)

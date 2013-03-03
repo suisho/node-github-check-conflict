@@ -31,6 +31,14 @@ module.exports = function(option){
     },
     label : function(user, repo, label, callback){
       require("./lib/labeling")(github, user, repo, label, callback)
+    },
+    edit : function(user, repo, number, editFunc, callback){
+      var msg = {
+        user : user,
+        repo : repo,
+        number : number
+      }
+      require("./lib/edit-issue")(github, msg, editFunc, callback)
     }
   }
 }
